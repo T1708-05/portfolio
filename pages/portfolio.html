@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Vũ Văn Thông</title>
+  <link rel="shortcut icon" href="../assets/images/logo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <aside class="sidebar" data-sidebar>
+  <div class="sidebar-info">
+    <figure class="avatar-box">
+      <img src="../assets/images/my123.png" alt="Vũ Văn Thông" width="80">
+    </figure>
+    <div class="info-content">
+      <h1 class="name" title="Vũ Văn Thông">Vũ Văn Thông</h1>
+      <p class="title">SOC Analyst</p>
+    </div>
+    <button class="info_more-btn" type="button" data-sidebar-btn>
+      <span>Show Contacts</span>
+      <ion-icon name="chevron-down"></ion-icon>
+    </button>
+  </div>
+  <div class="sidebar-info_more">
+    <div class="separator"></div>
+    <ul class="contacts-list">
+      <li class="contact-item">
+        <div class="icon-box"><ion-icon name="mail-outline"></ion-icon></div>
+        <div class="contact-info">
+          <p class="contact-title">Email</p>
+          <a href="mailto:vvthong.insec@gmail.com" class="contact-link">vvthong.insec@gmail.com</a>
+        </div>
+      </li>
+      <li class="contact-item">
+        <div class="icon-box"><ion-icon name="phone-portrait-outline"></ion-icon></div>
+        <div class="contact-info">
+          <p class="contact-title">Phone</p>
+          <a href="tel:+84968046024" class="contact-link">+84 968 046 024</a>
+        </div>
+      </li>
+      <li class="contact-item">
+        <div class="icon-box"><ion-icon name="calendar-outline"></ion-icon></div>
+        <div class="contact-info">
+          <p class="contact-title">Birthday</p>
+          <time datetime="2005-08-17">August 17, 2005</time>
+        </div>
+      </li>
+      <li class="contact-item">
+        <div class="icon-box"><ion-icon name="location-outline"></ion-icon></div>
+        <div class="contact-info">
+          <p class="contact-title">Location</p>
+          <address>Thủ Đức , Hồ Chí Minh</address>
+        </div>
+      </li>
+    </ul>
+    <div class="separator"></div>
+    <ul class="social-list">
+      <li class="social-item"><a href="https://www.facebook.com/thong.vu.871003" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+      <li class="social-item"><a href="https://github.com/vanity1412" class="social-link"><ion-icon name="logo-github"></ion-icon></a></li>
+      <li class="social-item"><a href="https://hackmd.io/@vinety" class="social-link"><ion-icon name="logo-markdown"></ion-icon></a></li>
+    </ul>
+  </div>
+</aside>
+    <div class="main-content">
+      <nav class="navbar">
+  <ul class="navbar-list">
+    <li class="navbar-item"><a class="navbar-link" href="../pages/about.html">About</a></li>
+    <li class="navbar-item"><a class="navbar-link" href="../pages/resume.html">Resume</a></li>
+    <li class="navbar-item"><a class="navbar-link" href="../pages/portfolio.html">Portfolio</a></li>
+    <li class="navbar-item"><a class="navbar-link" href="../pages/blog.html">Blog</a></li>
+    <li class="navbar-item"><a class="navbar-link" href="../pages/contact.html">Contact</a></li>
+  </ul>
+</nav>
+      <article class="portfolio active" data-page="portfolio">
+  <header><h2 class="h2 article-title">Portfolio</h2></header>
+  <section class="projects">
+    <ul class="filter-list">
+      <li class="filter-item"><button class="active" data-filter-btn>All</button></li>
+      <li class="filter-item"><button data-filter-btn>Cybersecurity Projects</button></li>
+      <li class="filter-item"><button data-filter-btn>Web design</button></li>
+      <li class="filter-item"><button data-filter-btn>Applications</button></li>
+      <li class="filter-item"><button data-filter-btn>Web development</button></li>
+    </ul>
+    <div class="filter-select-box">
+      <button class="filter-select" type="button" data-select>
+        <div class="select-value" data-select-value>Select category</div>
+        <div class="select-icon"><ion-icon name="chevron-down"></ion-icon></div>
+      </button>
+      <ul class="select-list">
+        <li class="select-item"><button type="button" data-select-item>All</button></li>
+        <li class="select-item"><button type="button" data-select-item>Cybersecurity Projects</button></li>
+        <li class="select-item"><button type="button" data-select-item>Web design</button></li>
+        <li class="select-item"><button type="button" data-select-item>Applications</button></li>
+        <li class="select-item"><button type="button" data-select-item>Web development</button></li>
+      </ul>
+    </div>
+    <ul class="project-list">
+      <li class="project-item active" data-filter-item data-category="cybersecurity projects">
+        <a href="https://github.com/vanity1412">
+          <figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-1.jpg" alt="GitHub Projects" loading="lazy"></figure>
+          <h3 class="project-title">GitHub Projects</h3><p class="project-category">Cybersecurity Projects</p>
+        </a>
+      </li>
+      <li class="project-item active" data-filter-item data-category="cybersecurity projects">
+        <a href="https://hackmd.io/@vinety">
+          <figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-2.png" alt="HackMD Notes" loading="lazy"></figure>
+          <h3 class="project-title">HackMD Notes</h3><p class="project-category">Cybersecurity Projects</p>
+        </a>
+      </li>
+      <li class="project-item active" data-filter-item data-category="web design">
+        <a href="../homework/homework.html">
+          <figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-3.jpg" alt="Homework web" loading="lazy"></figure>
+          <h3 class="project-title">Homework web</h3><p class="project-category">Web</p>
+        </a>
+      </li>
+      <li class="project-item active" data-filter-item data-category="applications">
+        <a href="#"><figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-4.png" alt="Brawlhalla" loading="lazy"></figure><h3 class="project-title">Brawlhalla</h3><p class="project-category">Applications</p></a>
+      </li>
+      <li class="project-item active" data-filter-item data-category="web design">
+        <a href="#"><figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-5.png" alt="DSM." loading="lazy"></figure><h3 class="project-title">DSM.</h3><p class="project-category">Web design</p></a>
+      </li>
+      <li class="project-item active" data-filter-item data-category="web design">
+        <a href="#"><figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-6.png" alt="MetaSpark" loading="lazy"></figure><h3 class="project-title">MetaSpark</h3><p class="project-category">Web design</p></a>
+      </li>
+      <li class="project-item active" data-filter-item data-category="web development">
+        <a href="#"><figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-7.png" alt="Summary" loading="lazy"></figure><h3 class="project-title">Summary</h3><p class="project-category">Web development</p></a>
+      </li>
+      <li class="project-item active" data-filter-item data-category="applications">
+        <a href="#"><figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-8.jpg" alt="Task Manager" loading="lazy"></figure><h3 class="project-title">Task Manager</h3><p class="project-category">Applications</p></a>
+      </li>
+      <li class="project-item active" data-filter-item data-category="web development">
+        <a href="#"><figure class="project-img"><div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div><img src="../assets/images/project-9.png" alt="Arrival" loading="lazy"></figure><h3 class="project-title">Arrival</h3><p class="project-category">Web development</p></a>
+      </li>
+    </ul>
+  </section>
+</article>
+    </div>
+  </main>
+  <script src="../assets/js/page.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

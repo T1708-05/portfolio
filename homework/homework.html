@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignments & Links</title>
+  <style>
+    :root{
+      --bg: #0b1020;
+      --surface: #121831;
+      --muted-surface: #0e1530;
+      --text: #ecf1ff;
+      --muted: #a9b4d0;
+      --primary: #7aa2ff;
+      --border: #1f2748;
+      --ring: rgba(122, 162, 255, 0.3);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      background: linear-gradient(180deg, var(--bg), #0d1430 60%, #0b1020);
+      color: var(--text);
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.45;
+    }
+
+    .wrap {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 16px 32px;
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(22px, 2.8vw, 32px);
+      margin: 0;
+      letter-spacing: .2px;
+    }
+
+    p.sub {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tools {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search {
+      position: relative;
+      flex: 1 1 260px;
+      min-width: 220px;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 12px 14px 12px 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--muted-surface);
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+
+    .search input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 6px var(--ring);
+      background: #0f1836;
+    }
+
+    .search .icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      opacity: .75;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #0d1531d6;
+      box-shadow: 0 8px 24px rgba(2, 6, 23, .6), inset 0 1px 0 rgba(255,255,255,.04);
+      overflow: hidden;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      min-width: 680px;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      text-align: left;
+      font-weight: 600;
+      color: var(--muted);
+      background: #101739;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      letter-spacing: .3px;
+    }
+
+    tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    tbody tr {
+      transition: background .15s, transform .06s;
+    }
+
+    tbody tr:hover {
+      background: rgba(122, 162, 255, 0.06);
+    }
+
+    .label {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    a.link {
+      color: var(--primary);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    a.link:focus, a.link:hover {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 14px 18px;
+      background: #0f1738;
+    }
+
+    .count {
+      margin-left: 6px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .sr-only {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Assignment Index</h1>
+        <p class="sub">Danh sách đường dẫn bài tập. Gõ để tìm nhanh hoặc cuộn để xem toàn bộ.</p>
+      </div>
+      <div class="tools">
+        <div class="search">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.2-4.2m1.2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <label for="q" class="sr-only">Tìm kiếm</label>
+          <input id="q" placeholder="Tìm theo Assignment hoặc Link..." autocomplete="off" />
+        </div>
+      </div>
+    </header>
+
+    <div class="card table-wrap" role="region" aria-label="Bảng assignments" tabindex="0">
+      <table aria-describedby="summary">
+        <thead>
+          <tr>
+            <th scope="col">Assignment</th>
+            <th scope="col">Link</th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <tr><td class="label">Week4</td><td><a class="link" href="https://buoi4.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Week2</td><td><a class="link" href="https://web1-1-x3z6.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Week3</td><td><a class="link" href="https://web-survery-week2.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex6.1</td><td><a class="link" href="https://btap1-ch06.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex6.2</td><td><a class="link" href="https://btap2-ch06.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex7.1</td><td><a class="link" href="https://ch07-cart-yvep.onrender.com" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex7.2</td><td><a class="link" href="https://web-assignment-ch07-2.onrender.com" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex8</td><td><a class="link" href="https://bai8-6jz2.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex9.1</td><td><a class="link" href="https://web1-5.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex9.2</td><td><a class="link" href="https://web1-4-swkn.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex12_1</td><td><a class="link" href="https://bai12-1.onrender.com" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex12_2</td><td><a class="link" href="https://bai12-2.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex13_1</td><td><a class="link" href="https://ch13-01.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+          <tr><td class="label">Ex13_2</td><td><a class="link" href="https://ch13-02.onrender.com/" target="_blank" rel="noopener">Link</a></td></tr>
+        </tbody>
+      </table>
+      <footer id="summary">
+        <span>Đã tải</span>
+        <span class="count" id="count">0</span>
+        <span>mục</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const q = document.getElementById('q');
+    const rows = document.getElementById('rows');
+    const count = document.getElementById('count');
+
+    function normalize(s){ return s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
+
+    function updateCount() {
+      count.textContent = rows.querySelectorAll('tr:not([hidden])').length;
+    }
+
+    function filter() {
+      const term = normalize(q.value.trim());
+      for (const tr of rows.querySelectorAll('tr')) {
+        const text = normalize(tr.innerText);
+        tr.hidden = term && !text.includes(term);
+      }
+      updateCount();
+    }
+
+    // Hiển thị đúng URL thay vì chữ "Link"
+    document.querySelectorAll('a.link').forEach(a => {
+      a.textContent = a.href;
+    });
+
+    updateCount();
+    q.addEventListener('input', filter);
+  </script>
+</body>
+</html>
