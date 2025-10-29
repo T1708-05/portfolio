@@ -15,6 +15,390 @@ body {
     color: #333;
     background-color: #ffffff;
     overflow-x: hidden;
+    transition: opacity 0.3s ease;
+}
+
+/* ============================================
+   Custom Cursor Styles - Enhanced
+   ============================================ */
+.custom-cursor {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(102, 126, 234, 0.8);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s ease;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3),
+                0 0 40px rgba(102, 126, 234, 0.2),
+                inset 0 0 20px rgba(102, 126, 234, 0.1);
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.6),
+                0 0 20px rgba(102, 126, 234, 0.4);
+}
+
+.cursor-glow {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9997;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.3s ease;
+    opacity: 0.5;
+    filter: blur(15px);
+}
+
+.cursor-particle {
+    width: 4px;
+    height: 4px;
+    background: rgba(102, 126, 234, 0.6);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9996;
+    transform: translate(-50%, -50%);
+    animation: particleFloat 2s ease-in-out infinite;
+    animation-delay: var(--delay);
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+}
+
+@keyframes particleFloat {
+    0%, 100% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+.custom-cursor.cursor-hover {
+    width: 60px;
+    height: 60px;
+    border-color: rgba(118, 75, 162, 0.9);
+    background: rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 30px rgba(102, 126, 234, 0.5),
+                0 0 60px rgba(102, 126, 234, 0.3),
+                inset 0 0 30px rgba(102, 126, 234, 0.15);
+}
+
+.cursor-dot.cursor-hover {
+    width: 12px;
+    height: 12px;
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.8),
+                0 0 30px rgba(102, 126, 234, 0.6);
+}
+
+.cursor-glow.cursor-hover {
+    width: 120px;
+    height: 120px;
+    opacity: 0.8;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.25) 0%, transparent 70%);
+}
+
+/* Mobile: Hide custom cursor */
+@media (max-width: 768px) {
+    .custom-cursor,
+    .cursor-dot,
+    .cursor-glow,
+    .cursor-particle {
+        display: none !important;
+    }
+    
+    body {
+        cursor: auto !important;
+    }
+}
+
+/* ============================================
+   Animated Background - Mesh Gradient
+   ============================================ */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bg-layer {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    opacity: 0.6;
+    animation: gradientMove 20s ease infinite;
+    animation-delay: var(--delay);
+    will-change: transform;
+}
+
+.bg-layer:nth-child(1) {
+    background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.12) 0%, transparent 50%);
+}
+
+.bg-layer:nth-child(2) {
+    background: radial-gradient(circle at 60% 20%, rgba(118, 75, 162, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(102, 126, 234, 0.15) 0%, transparent 50%);
+}
+
+.bg-layer:nth-child(3) {
+    background: radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 90% 40%, rgba(118, 75, 162, 0.1) 0%, transparent 60%);
+}
+
+@keyframes gradientMove {
+    0%, 100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translate(5%, 5%) scale(1.1) rotate(2deg);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(-3%, 8%) scale(1.05) rotate(-1deg);
+        opacity: 0.65;
+    }
+    75% {
+        transform: translate(8%, -2%) scale(1.08) rotate(1deg);
+        opacity: 0.7;
+    }
+}
+
+/* Ensure content readability */
+body {
+    position: relative;
+    z-index: 1;
+    background: #ffffff;
+}
+
+/* All sections have backdrop blur for readability */
+section {
+    position: relative;
+    z-index: 1;
+}
+
+.container, .hero-content, .page-header {
+    position: relative;
+    z-index: 2;
+}
+
+/* Ensure text is always readable */
+.about-preview-text,
+.skills-preview,
+.projects-preview,
+.contact-cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Cards and content blocks - Additional styling for readability */
+
+/* ============================================
+   Scroll Animations
+   ============================================ */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-up.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   Enhanced Hover Effects
+   ============================================ */
+.btn, a.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* Card Hover Effects */
+.skill-preview-item,
+.project-preview-card,
+.stat {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-preview-item::before,
+.project-preview-card::before,
+.stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.skill-preview-item:hover::before,
+.project-preview-card:hover::before,
+.stat:hover::before {
+    left: 100%;
+}
+
+.skill-preview-item:hover,
+.project-preview-card:hover,
+.stat:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+}
+
+/* Image Hover Effects */
+.project-preview-image,
+.hero-image {
+    overflow: hidden;
+}
+
+.project-preview-image img,
+.hero-image img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-preview-card:hover .project-preview-image img,
+.hero-image:hover img {
+    transform: scale(1.1);
+}
+
+/* Parallax Support */
+.hero,
+.page-header {
+    will-change: transform;
+}
+
+/* ============================================
+   Text Animations
+   ============================================ */
+.hero-title .highlight {
+    position: relative;
+    display: inline-block;
+}
+
+.hero-title .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+    animation: glowMove 3s ease-in-out infinite;
+}
+
+@keyframes glowMove {
+    0%, 100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(100%);
+        opacity: 1;
+    }
+}
+
+/* Icon Animations */
+.skill-preview-item i {
+    transition: all 0.3s ease;
+}
+
+.skill-preview-item:hover i {
+    transform: scale(1.2) rotate(5deg);
+    color: #667eea;
+}
+
+/* Text Reveal Animation */
+.hero-text,
+.about-preview-text,
+.contact-cta-content {
+    animation: fadeInUp 0.8s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   Smooth Scrollbar
+   ============================================ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #667eea, #764ba2);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #764ba2, #667eea);
 }
 
 .container {
@@ -50,7 +434,10 @@ body {
 /* About Preview Section */
 .about-preview {
     padding: 100px 0;
-    background: #f8fafc;
+    background: rgba(248, 250, 252, 0.95);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
 }
 
 .about-preview-content {
@@ -82,15 +469,21 @@ body {
 .about-preview-stats .stat {
     text-align: center;
     padding: 1.5rem;
-    background: white;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 1;
 }
 
 /* Skills Preview Section */
 .skills-preview {
     padding: 100px 0;
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
 }
 
 .skills-preview-grid {
@@ -103,9 +496,12 @@ body {
 .skill-preview-item {
     text-align: center;
     padding: 2rem;
-    background: #f8fafc;
+    background: rgba(248, 250, 252, 0.98);
+    backdrop-filter: blur(20px);
     border-radius: 15px;
     transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .skill-preview-item:hover {
@@ -132,7 +528,10 @@ body {
 /* Projects Preview Section */
 .projects-preview {
     padding: 100px 0;
-    background: #f8fafc;
+    background: rgba(248, 250, 252, 0.95);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
 }
 
 .projects-preview-grid {
@@ -143,11 +542,14 @@ body {
 }
 
 .project-preview-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .project-preview-card:hover {
@@ -331,6 +733,31 @@ body {
     bottom: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
     opacity: 0.1;
+    z-index: 1;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    animation: gradientShift 20s ease infinite;
+    z-index: 1;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
 }
 
 .hero-container {

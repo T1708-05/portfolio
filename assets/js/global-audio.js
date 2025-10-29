@@ -7,18 +7,18 @@ class GlobalAudioPlayer {
         this.currentSongIndex = 0;
         this.playlist = [
             {
-                name: 'Beethoven 1',
-                artist: 'Classical',
+                name: 'MUSIC',
+                artist: 'PIANO',
                 file: 'assets/Music/Beethoven1.mp3'
             },
             {
-                name: 'Beethoven 2 Virus',
-                artist: 'Classical',
+                name: 'MUSIC',
+                artist: 'PIANO',
                 file: 'assets/Music/Beethoven2_Virus.mp3'
             },
             {
-                name: 'Beethoven 3',
-                artist: 'Classical',
+                name: 'MUSIC',
+                artist: 'PIANO',
                 file: 'assets/Music/Beethoven3.mp3'
             }
         ];
@@ -27,34 +27,83 @@ class GlobalAudioPlayer {
     }
 
     init() {
+        // Khôi phục trạng thái từ localStorage trước
+        this.restoreState();
+        
         // Tạo audio element global
         this.createGlobalAudio();
         
-        // Khôi phục trạng thái từ localStorage
-        this.restoreState();
+        // Lưu trạng thái định kỳ (bao gồm currentTime)
+        this.startSavingState();
         
-        // Chuyển bài khi load trang mới (chỉ khi đã có trạng thái lưu trước đó)
-        const savedState = localStorage.getItem('globalAudioState');
-        if (savedState) {
-            this.changeSongOnPageLoad();
-        }
+        // Lắng nghe sự kiện beforeunload để lưu trạng thái cuối cùng
+        window.addEventListener('beforeunload', () => {
+            this.saveStateBeforeUnload();
+        });
         
-        // Lưu trạng thái khi có thay đổi
-        this.saveState();
+        // Lắng nghe visibility change để pause/resume khi tab không active
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && this.audio && this.isPlaying) {
+                // Tab bị ẩn - vẫn tiếp tục phát
+            } else if (!document.hidden && this.isPlaying && this.audio.paused) {
+                // Tab hiển thị lại - tiếp tục phát nếu đang pause
+                this.audio.play().catch(() => {});
+            }
+        });
         
         // Tự động phát nếu đã được bật trước đó
         if (this.isPlaying) {
-            this.play();
+            // Đảm bảo audio được load và phát ngay
+            const tryPlay = () => {
+                if (this.audio.readyState >= 2) { // HAVE_CURRENT_DATA
+                    if (this.savedCurrentTime && this.savedCurrentTime > 0) {
+                        this.audio.currentTime = Math.min(this.savedCurrentTime, this.audio.duration || Infinity);
+                        this.savedCurrentTime = 0;
+                    }
+                    this.audio.play().catch(() => {
+                        // Nếu bị block, chờ user interaction
+                        console.log('Auto-play blocked, waiting for user interaction');
+                    });
+                } else {
+                    // Chờ metadata load
+                    this.audio.addEventListener('loadedmetadata', tryPlay, { once: true });
+                    this.audio.addEventListener('canplay', tryPlay, { once: true });
+                }
+            };
+            
+            tryPlay();
         }
     }
 
     createGlobalAudio() {
-        // Tạo audio element ẩn
-        this.audio = document.createElement('audio');
-        this.audio.id = 'global-audio';
-        this.audio.loop = false; // Không loop để có thể chuyển bài
+        // Loại bỏ các audio elements cũ trong HTML (nếu có)
+        const oldAudios = document.querySelectorAll('audio[id="background-music"]');
+        oldAudios.forEach(audio => {
+            audio.pause();
+            audio.remove();
+        });
+        
+        // Kiểm tra xem có audio element global nào đã tồn tại chưa
+        let existingAudio = document.getElementById('global-audio');
+        
+        if (existingAudio) {
+            // Sử dụng audio element có sẵn
+            this.audio = existingAudio;
+            // Cập nhật volume và source nếu cần
+            this.audio.volume = this.volume;
+            this.updateAudioSource();
+            return; // Không tạo mới, chỉ cập nhật
+        } else {
+            // Tạo audio element global mới
+            this.audio = document.createElement('audio');
+            this.audio.id = 'global-audio';
+            this.audio.loop = false; // Không loop để có thể chuyển bài
+            this.audio.style.display = 'none';
+            document.body.appendChild(this.audio);
+        }
+        
+        // Cập nhật volume
         this.audio.volume = this.volume;
-        this.audio.style.display = 'none';
         
         // Thêm source cho bài hát hiện tại
         this.updateAudioSource();
@@ -64,7 +113,10 @@ class GlobalAudioPlayer {
             this.nextSong();
         });
         
-        document.body.appendChild(this.audio);
+        // Lắng nghe timeupdate để lưu currentTime
+        this.audio.addEventListener('timeupdate', () => {
+            this.lastUpdateTime = Date.now();
+        });
     }
 
     getCorrectPath(songFile) {
@@ -81,8 +133,69 @@ class GlobalAudioPlayer {
     updateAudioSource() {
         // Cập nhật source cho bài hát hiện tại
         if (this.audio) {
-            this.audio.src = this.getCorrectPath(this.currentSong.file);
+            const wasPlaying = !this.audio.paused;
+            const savedTime = this.audio.currentTime;
+            const newSrc = this.getCorrectPath(this.currentSong.file);
+            
+            // Chỉ cập nhật source nếu bài hát thay đổi hoặc chưa có source
+            let currentSrc = '';
+            try {
+                if (this.audio.src) {
+                    currentSrc = new URL(this.audio.src).pathname;
+                }
+            } catch (e) {
+                // Ignore
+            }
+            
+            const newSrcPath = newSrc.startsWith('http') ? new URL(newSrc).pathname : newSrc;
+            
+            // Nếu cùng bài hát và đang phát, chỉ cập nhật currentTime nếu cần
+            if (currentSrc && currentSrc.endsWith(this.currentSong.file.split('/').pop())) {
+                if (this.savedCurrentTime && this.savedCurrentTime > 0 && Math.abs(this.audio.currentTime - this.savedCurrentTime) > 1) {
+                    if (this.audio.readyState >= 2) {
+                        this.audio.currentTime = Math.min(this.savedCurrentTime, this.audio.duration || Infinity);
+                        this.savedCurrentTime = 0;
+                    } else {
+                        this.audio.addEventListener('loadedmetadata', () => {
+                            this.audio.currentTime = Math.min(this.savedCurrentTime, this.audio.duration);
+                            this.savedCurrentTime = 0;
+                        }, { once: true });
+                    }
+                }
+                // Đảm bảo tiếp tục phát nếu đang phát
+                if (wasPlaying && this.audio.paused) {
+                    this.audio.play().catch(() => {});
+                }
+                return;
+            }
+            
+            // Lưu currentTime hiện tại trước khi load bài mới
+            if (!this.savedCurrentTime && wasPlaying && savedTime > 0) {
+                this.savedCurrentTime = savedTime;
+            }
+            
+            this.audio.src = newSrc;
             this.audio.load();
+            
+            // Khôi phục currentTime và phát nếu cần
+            const onCanPlay = () => {
+                if (this.savedCurrentTime && this.savedCurrentTime > 0) {
+                    this.audio.currentTime = Math.min(this.savedCurrentTime, this.audio.duration || Infinity);
+                    this.savedCurrentTime = 0;
+                }
+                if (wasPlaying || this.isPlaying) {
+                    this.audio.play().catch(() => {
+                        // Auto-play bị block
+                    });
+                }
+            };
+            
+            if (this.audio.readyState >= 3) { // HAVE_FUTURE_DATA
+                onCanPlay();
+            } else {
+                this.audio.addEventListener('canplay', onCanPlay, { once: true });
+                this.audio.addEventListener('loadedmetadata', onCanPlay, { once: true });
+            }
         }
     }
 
@@ -111,6 +224,12 @@ class GlobalAudioPlayer {
 
     play() {
         if (this.audio) {
+            // Khôi phục currentTime trước khi phát
+            if (this.savedCurrentTime && this.savedCurrentTime > 0) {
+                this.audio.currentTime = this.savedCurrentTime;
+                this.savedCurrentTime = 0; // Reset sau khi đã khôi phục
+            }
+            
             this.audio.play().then(() => {
                 this.isPlaying = true;
                 this.updateUI();
@@ -177,9 +296,37 @@ class GlobalAudioPlayer {
             isPlaying: this.isPlaying,
             volume: this.volume,
             currentSongIndex: this.currentSongIndex,
-            currentSong: this.currentSong
+            currentSong: this.currentSong,
+            currentTime: this.audio ? this.audio.currentTime : 0,
+            timestamp: Date.now()
         };
         localStorage.setItem('globalAudioState', JSON.stringify(state));
+    }
+    
+    saveStateBeforeUnload() {
+        // Lưu trạng thái cuối cùng trước khi unload
+        if (this.audio && !this.audio.paused) {
+            const state = {
+                isPlaying: true,
+                volume: this.volume,
+                currentSongIndex: this.currentSongIndex,
+                currentSong: this.currentSong,
+                currentTime: this.audio.currentTime,
+                timestamp: Date.now()
+            };
+            localStorage.setItem('globalAudioState', JSON.stringify(state));
+        } else {
+            this.saveState();
+        }
+    }
+    
+    startSavingState() {
+        // Lưu trạng thái định kỳ mỗi 2 giây
+        setInterval(() => {
+            if (this.audio && !this.audio.paused) {
+                this.saveState();
+            }
+        }, 2000);
     }
 
     restoreState() {
@@ -188,12 +335,33 @@ class GlobalAudioPlayer {
         if (savedState) {
             try {
                 const state = JSON.parse(savedState);
-                this.isPlaying = state.isPlaying || false;
-                this.volume = state.volume || 0.5;
-                this.currentSongIndex = state.currentSongIndex || 0;
-                this.currentSong = this.playlist[this.currentSongIndex];
+                const timeDiff = Date.now() - (state.timestamp || 0);
+                
+                // Chỉ khôi phục nếu trạng thái còn "tươi" (dưới 30 giây)
+                if (timeDiff < 30000) {
+                    this.isPlaying = state.isPlaying || false;
+                    this.volume = state.volume || 0.5;
+                    this.currentSongIndex = state.currentSongIndex || 0;
+                    this.currentSong = this.playlist[this.currentSongIndex];
+                    // Lưu currentTime để khôi phục sau
+                    this.savedCurrentTime = state.currentTime || 0;
+                    // Không cập nhật thời gian vì chưa biết duration, sẽ khôi phục chính xác khi audio load
+                } else {
+                    // Trạng thái quá cũ, reset
+                    this.isPlaying = false;
+                    this.volume = 0.5;
+                    this.currentSongIndex = 0;
+                    this.currentSong = this.playlist[this.currentSongIndex];
+                    this.savedCurrentTime = 0;
+                }
             } catch (error) {
                 console.log('Error restoring audio state:', error);
+                // Reset về mặc định
+                this.isPlaying = false;
+                this.volume = 0.5;
+                this.currentSongIndex = 0;
+                this.currentSong = this.playlist[this.currentSongIndex];
+                this.savedCurrentTime = 0;
             }
         }
     }
@@ -217,6 +385,22 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         if (window.globalAudioPlayer) {
             window.globalAudioPlayer.updateUI();
+            
+            // Đảm bảo audio tiếp tục phát nếu đang phát
+            if (window.globalAudioPlayer.isPlaying && window.globalAudioPlayer.audio && window.globalAudioPlayer.audio.paused) {
+                window.globalAudioPlayer.audio.play().catch(() => {
+                    // Auto-play bị block
+                });
+            }
         }
     }, 100);
+});
+
+// Đảm bảo audio tiếp tục khi visibility change
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden && window.globalAudioPlayer) {
+        if (window.globalAudioPlayer.isPlaying && window.globalAudioPlayer.audio && window.globalAudioPlayer.audio.paused) {
+            window.globalAudioPlayer.audio.play().catch(() => {});
+        }
+    }
 });
