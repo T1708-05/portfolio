@@ -23,6 +23,14 @@
     <link rel="stylesheet" href="../../assets/css/blog.css">
 </head>
 <body>
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder"></div>
+    
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
@@ -61,12 +69,12 @@
             <!-- Post Content -->
             <div class="post-content">
                 <div class="post-excerpt">
-                    <p>Khi mới bước vào thế giới bảo mật, tôi thường bối rối với các thuật ngữ "Red Team", "Blue Team", "Purple Team". Họ là ai? Làm gì? Và tại sao lại quan trọng đến vậy? Sau một thời gian tìm hiểu và thực hành, tôi muốn chia sẻ với các bạn những gì mình đã học được về "chiến trường" màu sắc này.</p>
+                    <p>Chào các bạn! Mình là Vũ Văn Thông, sinh viên năm 3 ngành An toàn thông tin. Khi mới bước vào thế giới bảo mật, mình thường bối rối với các thuật ngữ "Red Team", "Blue Team", "Purple Team". Họ là ai? Làm gì? Và tại sao lại quan trọng đến vậy? Sau một thời gian tìm hiểu và học hỏi từ các anh chị đi trước, mình muốn chia sẻ với các bạn những gì mình đã học được về "chiến trường" màu sắc này.</p>
                 </div>
 
-                <h2>Vì sao phải biết "màu" của mình?</h2>
+                <h2>Vì sao mình cần biết "màu" của mình?</h2>
                 
-                <p>Trước khi đi vào chi tiết, hãy xem một vài con số để hiểu tại sao việc hiểu rõ vai trò của từng team lại quan trọng:</p>
+                <p>Khi mình mới học về bảo mật, mình cũng thắc mắc tại sao phải phân biệt các "màu" này. Sau khi tìm hiểu, mình hiểu được tầm quan trọng của việc này. Hãy xem một vài con số mà mình đã tổng hợp được:</p>
                 
                 <div class="stats-highlight">
                     <div class="stat-item">
@@ -297,13 +305,13 @@
 
                 <h2>Kết: Bạn chọn màu nào?</h2>
                 
-                <p>Mình đang nghiêng <strong>Purple</strong>—vì cảm giác "test xong → rule sáng → rủi ro giảm thấy rõ" rất đã 😄</p>
+                <p>Sau khi tìm hiểu về các team này, mình đang nghiêng về <strong>Purple</strong>—vì mình cảm thấy việc "test xong → rule sáng → rủi ro giảm thấy rõ" rất thú vị và có ý nghĩa 😄</p>
                 
-                <p>Còn bạn? <strong>Red</strong> để "đột nhập có mục tiêu", <strong>Blue</strong> để "giữ thành vững chắc", hay <strong>Purple</strong> để "đo lường & cải tiến" liên tục?</p>
+                <p>Còn các bạn thì sao? <strong>Red</strong> để "đột nhập có mục tiêu", <strong>Blue</strong> để "giữ thành vững chắc", hay <strong>Purple</strong> để "đo lường & cải tiến" liên tục?</p>
                 
                 <div class="call-to-action">
                     <h3>👉 Call to action cho LinkedIn:</h3>
-                    <p>Bình luận <strong>màu của bạn</strong> + <strong>1 kỹ năng</strong> sẽ luyện trong 30 ngày tới. Nếu cần, mình share <strong>template Purple Report</strong> + <strong>3 Sigma rules</strong> mẫu để bạn dùng ngay.</p>
+                    <p>Hãy bình luận <strong>màu của bạn</strong> + <strong>1 kỹ năng</strong> sẽ luyện trong 30 ngày tới. Nếu cần, mình có thể chia sẻ <strong>template Purple Report</strong> + <strong>3 Sigma rules</strong> mẫu để các bạn dùng ngay.</p>
                 </div>
 
                 <div class="post-footer">
@@ -351,11 +359,35 @@
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
+    <!-- Audio Player -->
+    <div class="audio-player" id="audio-player">
+        <div class="audio-controls">
+            <button class="audio-toggle" id="audio-toggle">
+                <i class="fas fa-play" id="play-icon"></i>
+            </button>
+            <div class="audio-info">
+                <span class="song-title">MUSIC</span>
+                <span class="song-artist">PIANO</span>
+            </div>
+            <div class="audio-volume">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50">
+            </div>
+        </div>
+        <audio id="background-music" loop>
+            <source src="../../assets/Music/Beethoven1.mp3" type="audio/mpeg">
+            <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
     <!-- Load Components Script -->
     <script src="../../assets/js/load-components.js"></script>
     <!-- Custom JavaScript -->
     <script src="../../assets/js/script.js"></script>
     <script src="../../assets/js/blog.js"></script>
+    <script src="../../assets/js/global-audio.js"></script>
+    <script src="../../assets/js/audio-player.js"></script>
+    <script src="../../assets/js/animations.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>

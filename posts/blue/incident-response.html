@@ -23,6 +23,14 @@
     <link rel="stylesheet" href="../../assets/css/blog.css">
 </head>
 <body>
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder"></div>
+    
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
@@ -61,12 +69,12 @@
             <!-- Post Content -->
             <div class="post-content">
                 <div class="post-excerpt">
-                    <p>Khi làm việc trong lĩnh vực bảo mật, một trong những tình huống căng thẳng nhất mà chúng ta có thể gặp phải chính là khi hệ thống bị tấn công. Lúc này, việc có một quy trình xử lý sự cố (Incident Response) rõ ràng và hiệu quả sẽ quyết định rất lớn đến khả năng phục hồi và giảm thiểu thiệt hại. Trong bài viết này, tôi sẽ chia sẻ với các bạn quy trình IR 6 bước mà tôi đã học được và áp dụng trong thực tế.</p>
+                    <p>Chào các bạn! Mình là Vũ Văn Thông, sinh viên năm 3 ngành An toàn thông tin. Hôm nay mình muốn chia sẻ với các bạn về một chủ đề mà mình rất quan tâm - Incident Response (IR). Khi mới học về bảo mật, mình luôn tự hỏi: "Khi hệ thống bị tấn công thì phải làm gì?". Sau khi tìm hiểu và học hỏi từ các anh chị đi trước, mình đã tổng hợp được quy trình IR 6 bước cơ bản. Hy vọng sẽ hữu ích cho các bạn!</p>
                 </div>
 
-                <h2>Quy trình IR 6 bước cơ bản</h2>
+                <h2>Quy trình IR 6 bước mà mình học được</h2>
                 
-                <p>Trước khi đi vào chi tiết, hãy cùng xem qua sơ đồ tổng quan về quy trình IR mà chúng ta sẽ thảo luận:</p>
+                <p>Khi mình mới tìm hiểu về IR, mình cũng bối rối không biết bắt đầu từ đâu. Sau khi đọc nhiều tài liệu và xem các video trên YouTube, mình đã tổng hợp được quy trình IR 6 bước cơ bản. Mình sẽ chia sẻ với các bạn:</p>
                 
                 <div class="mermaid-diagram">
                     <pre><code class="language-mermaid">flowchart TD
@@ -85,7 +93,7 @@
 
                 <h2>Incident Response là gì và tại sao nó quan trọng?</h2>
                 
-                <p>Trước khi đi sâu vào quy trình, tôi muốn chia sẻ một chút về định nghĩa và tầm quan trọng của Incident Response. Theo kinh nghiệm của tôi, IR không chỉ đơn thuần là "xử lý sự cố" mà là một quy trình có hệ thống để:</p>
+                <p>Khi mình mới học về IR, mình cũng thắc mắc không biết nó là gì và tại sao lại quan trọng. Sau khi tìm hiểu, mình hiểu được rằng IR không chỉ đơn thuần là "xử lý sự cố" mà là một quy trình có hệ thống để:</p>
                 
                 <ul>
                     <li><strong>Giảm thiểu thiệt hại</strong>: Khi sự cố xảy ra, mỗi phút trôi qua đều có thể làm tăng thiệt hại. IR giúp chúng ta phản ứng nhanh chóng và hiệu quả.</li>
@@ -98,9 +106,9 @@
 
                 <h2>Bước 1: Preparation – Chuẩn bị sẵn sàng</h2>
                 
-                <p>Có một câu nói mà tôi rất tâm đắc: <em>"By failing to prepare, you are preparing to fail"</em>. Trong lĩnh vực bảo mật, việc chuẩn bị trước là cực kỳ quan trọng. Khi sự cố xảy ra, chúng ta không có thời gian để nghĩ ra quy trình hay tìm kiếm thông tin liên lạc.</p>
+                <p>Có một câu nói mà mình rất tâm đắc: <em>"By failing to prepare, you are preparing to fail"</em>. Khi mình học về IR, mình nhận ra rằng việc chuẩn bị trước là cực kỳ quan trọng. Khi sự cố xảy ra, chúng ta không có thời gian để nghĩ ra quy trình hay tìm kiếm thông tin liên lạc.</p>
                 
-                <p>Dựa trên kinh nghiệm của mình, tôi thường chuẩn bị những thứ sau:</p>
+                <p>Sau khi tìm hiểu và hỏi các anh chị đi trước, mình đã tổng hợp được những thứ cần chuẩn bị:</p>
 
                 <h3>Những điều cần chuẩn bị</h3>
                 <div class="checklist">
@@ -399,13 +407,13 @@ Nội dung:
 
                 <h2>Kết luận</h2>
                 
-                <p>Qua bài viết này, tôi hy vọng đã chia sẻ được với các bạn quy trình IR 6 bước mà tôi đã học được và áp dụng trong thực tế. Điều quan trọng nhất mà tôi muốn nhấn mạnh là: <strong>một chương trình IR hiệu quả không bắt đầu khi chuông báo động reo</strong>.</p>
+                <p>Qua quá trình tìm hiểu về IR, mình nhận ra rằng một chương trình IR hiệu quả không bắt đầu khi chuông báo động reo, mà bắt đầu từ việc chuẩn bị kỹ lưỡng: con người, quy trình, công cụ, và dữ liệu.</p>
                 
-                <p>Thay vào đó, nó bắt đầu từ việc chuẩn bị kỹ lưỡng: con người, quy trình, công cụ, và dữ liệu. Hãy áp dụng 6 bước trên, duy trì tập dượt định kỳ, đo lường MTTD/MTTR, và không ngừng cập nhật playbook dựa trên kinh nghiệm thực tế.</p>
+                <p>Mình hy vọng bài viết này sẽ giúp các bạn có cái nhìn tổng quan về quy trình IR 6 bước. Hãy áp dụng những bước trên, duy trì tập dượt định kỳ, đo lường MTTD/MTTR, và không ngừng cập nhật playbook dựa trên kinh nghiệm thực tế.</p>
                 
                 <p>Khi đó, mỗi sự cố sẽ không còn là nỗi sợ hãi mà trở thành <strong>cơ hội để nâng cấp hệ miễn dịch</strong> an ninh của tổ chức. Chúc các bạn thành công trong việc xây dựng và vận hành chương trình IR hiệu quả!</p>
                 
-                <p><em>Nếu bạn có câu hỏi hoặc muốn chia sẻ kinh nghiệm về IR, đừng ngần ngại liên hệ với tôi qua các kênh social media bên dưới nhé!</em></p>
+                <p><em>Nếu các bạn có câu hỏi hoặc muốn chia sẻ kinh nghiệm về IR, hãy chia sẻ với mình nhé! Mình cũng đang học hỏi và rất muốn được trao đổi thêm.</em></p>
 
                 <div class="post-footer">
                     <div class="post-share">
@@ -452,11 +460,35 @@ Nội dung:
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
+    <!-- Audio Player -->
+    <div class="audio-player" id="audio-player">
+        <div class="audio-controls">
+            <button class="audio-toggle" id="audio-toggle">
+                <i class="fas fa-play" id="play-icon"></i>
+            </button>
+            <div class="audio-info">
+                <span class="song-title">MUSIC</span>
+                <span class="song-artist">PIANO</span>
+            </div>
+            <div class="audio-volume">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50">
+            </div>
+        </div>
+        <audio id="background-music" loop>
+            <source src="../../assets/Music/Beethoven1.mp3" type="audio/mpeg">
+            <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
     <!-- Load Components Script -->
     <script src="../../assets/js/load-components.js"></script>
     <!-- Custom JavaScript -->
     <script src="../../assets/js/script.js"></script>
     <script src="../../assets/js/blog.js"></script>
+    <script src="../../assets/js/global-audio.js"></script>
+    <script src="../../assets/js/audio-player.js"></script>
+    <script src="../../assets/js/animations.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>

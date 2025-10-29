@@ -23,6 +23,14 @@
     <link rel="stylesheet" href="../../assets/css/blog.css">
 </head>
 <body>
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder"></div>
+    
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
@@ -61,10 +69,12 @@
             <!-- Post Content -->
             <div class="post-content">
                 <div class="post-excerpt">
-                    <p><strong>Misconfiguration</strong> vẫn là nguyên nhân hàng đầu dẫn đến lộ lọt dữ liệu trên đám mây. Tenable cho biết <strong>9% tài nguyên lưu trữ công khai trên cloud chứa dữ liệu nhạy cảm</strong> (97% ở mức restricted/confidential). Gartner cũng nhiều năm liền nhấn mạnh: <strong>đa số sự cố bảo mật cloud xuất phát từ phía khách hàng</strong>, chủ yếu do cấu hình sai.</p>
+                    <p>Chào các bạn! Mình là Vũ Văn Thông, sinh viên năm 3 ngành An toàn thông tin. Hôm nay mình muốn chia sẻ với các bạn về một vấn đề mà mình rất quan tâm - <strong>Misconfiguration</strong> trên AWS. Khi học về Cloud Security, mình nhận ra rằng đây vẫn là nguyên nhân hàng đầu dẫn đến lộ lọt dữ liệu trên đám mây. Tenable cho biết <strong>9% tài nguyên lưu trữ công khai trên cloud chứa dữ liệu nhạy cảm</strong> (97% ở mức restricted/confidential). Gartner cũng nhiều năm liền nhấn mạnh: <strong>đa số sự cố bảo mật cloud xuất phát từ phía khách hàng</strong>, chủ yếu do cấu hình sai.</p>
                 </div>
 
-                <h2>Thống kê đáng báo động</h2>
+                <h2>Thống kê đáng báo động mà mình tìm hiểu được</h2>
+                
+                <p>Khi mình tìm hiểu về Cloud Security, mình thấy những con số này thực sự đáng lo ngại:</p>
                 
                 <div class="stats-highlight">
                     <div class="stat-item">
@@ -85,7 +95,7 @@
                     </div>
                 </div>
 
-                <p>Bài này tổng hợp <strong>10 cấu hình sai (misconfig) "đụng là thấy"</strong> trong môi trường AWS, vì sao nguy hiểm, <strong>dấu hiệu nhận biết</strong>, <strong>cách tự kiểm nhanh</strong> (console/CLI), và <strong>hướng khắc phục bền vững</strong> (chuẩn hóa bằng AWS Config/Security Hub/IaC).</p>
+                <p>Sau khi tìm hiểu, mình đã tổng hợp được <strong>10 cấu hình sai (misconfig) "đụng là thấy"</strong> trong môi trường AWS, vì sao nguy hiểm, <strong>dấu hiệu nhận biết</strong>, <strong>cách tự kiểm nhanh</strong> (console/CLI), và <strong>hướng khắc phục bền vững</strong> (chuẩn hóa bằng AWS Config/Security Hub/IaC).</p>
 
                 <h2>1. S3 để lộ công khai (không chặn public, bucket policy hở, quên dùng OAC với CloudFront)</h2>
                 
@@ -465,11 +475,11 @@ aws s3api get-public-access-block --bucket &lt;BUCKET&gt;</code></pre>
 
                 <h2>Kết luận</h2>
                 
-                <p>Không phải "nguy cơ Zero‑day" mới làm ta mất ngủ; <strong>một Security Group mở 0.0.0.0/0 hay một snapshot công khai</strong> đủ khiến đêm dài. Hãy bắt đầu từ những thứ <strong>đơn giản – đo được – tự động hoá được</strong>: bật Security Hub (FSBP), GuardDuty toàn tổ chức, quét Prowler định kỳ, và đưa các rule "không mặc cả" (encryption, public‑access block, IMDSv2…) vào IaC/CI.</p>
+                <p>Qua quá trình tìm hiểu về AWS misconfiguration, mình nhận ra rằng không phải "nguy cơ Zero‑day" mới làm ta mất ngủ; <strong>một Security Group mở 0.0.0.0/0 hay một snapshot công khai</strong> đủ khiến đêm dài. Mình nghĩ cách tốt nhất là bắt đầu từ những thứ <strong>đơn giản – đo được – tự động hoá được</strong>: bật Security Hub (FSBP), GuardDuty toàn tổ chức, quét Prowler định kỳ, và đưa các rule "không mặc cả" (encryption, public‑access block, IMDSv2…) vào IaC/CI.</p>
                 
                 <div class="call-to-action">
                     <h3>👉 Call to action:</h3>
-                    <p>Bạn muốn mình <strong>chuyển 10 mục trên thành một checklist 1‑page</strong> (CSV hoặc Markdown) để dán vào sprint hardening? Mình làm ngay.</p>
+                    <p>Các bạn có muốn mình <strong>chuyển 10 mục trên thành một checklist 1‑page</strong> (CSV hoặc Markdown) để dán vào sprint hardening không? Mình có thể làm ngay!</p>
                 </div>
 
                 <div class="post-footer">
@@ -517,11 +527,35 @@ aws s3api get-public-access-block --bucket &lt;BUCKET&gt;</code></pre>
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
+    <!-- Audio Player -->
+    <div class="audio-player" id="audio-player">
+        <div class="audio-controls">
+            <button class="audio-toggle" id="audio-toggle">
+                <i class="fas fa-play" id="play-icon"></i>
+            </button>
+            <div class="audio-info">
+                <span class="song-title">MUSIC</span>
+                <span class="song-artist">PIANO</span>
+            </div>
+            <div class="audio-volume">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50">
+            </div>
+        </div>
+        <audio id="background-music" loop>
+            <source src="../../assets/Music/Beethoven1.mp3" type="audio/mpeg">
+            <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
     <!-- Load Components Script -->
     <script src="../../assets/js/load-components.js"></script>
     <!-- Custom JavaScript -->
     <script src="../../assets/js/script.js"></script>
     <script src="../../assets/js/blog.js"></script>
+    <script src="../../assets/js/global-audio.js"></script>
+    <script src="../../assets/js/audio-player.js"></script>
+    <script src="../../assets/js/animations.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
