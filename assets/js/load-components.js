@@ -37,6 +37,14 @@ function loadComponents() {
             updateNavigationLinks();
             // Set active navigation link based on current page
             setActiveNavLink();
+            // Initialize dark mode after header loads
+            if (window.darkMode) {
+                window.darkMode.setupToggle();
+            }
+            // Initialize i18n after header loads
+            if (window.i18n) {
+                window.i18n.setupToggle();
+            }
         })
         .catch(error => console.error('Error loading header:', error));
 

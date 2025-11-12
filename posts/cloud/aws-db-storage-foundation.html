@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 2 · Database & Storage Foundation – Blog tóm tắt dễ hiểu</title>
+  <meta name="description" content="Tóm tắt dễ hiểu về Database & Storage Foundation (Week 2). Dạng blog giống mẫu Network Foundation, kèm quiz tương tác 20 câu.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💾%3C/text%3E%3C/svg%3E">
+  <!-- Google Fonts + Icons (same vibe as the network page) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#0b1220;
+      --text:#e9f0ff;
+      --muted:#a5b3c9;
+      --card:#111a2b;
+      --border:#24324d;
+      --chip:#162341;
+      --accent:#6ee7ff;
+      --accent2:#7c3aed;
+      --ok:#10b981;
+      --bad:#ef4444;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(80% 60% at 10% 10%, rgba(124,58,237,.15), transparent 60%) ,
+        radial-gradient(60% 60% at 90% 20%, rgba(110,231,255,.12), transparent 60%),
+        var(--bg);
+      line-height:1.65;
+    }
+    a{color:#8ad8ff;text-decoration:none}
+    a:hover{text-decoration:underline}
+    /* Global containers like the network page */
+    .container{max-width:1100px;margin:0 auto;padding:20px}
+    /* Header placeholders to mimic structure */
+    #sidebar-placeholder,#header-placeholder,#footer-placeholder{display:none}
+    /* Post */
+    .blog-post{padding-top:8px}
+    .post-header{
+      background:linear-gradient(180deg, rgba(10,18,35,.7), rgba(10,18,35,.4));
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .post-breadcrumb a{color:#9cc8ff}
+    .post-meta{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 10px}
+    .post-category,.post-date,.post-read-time{
+      display:inline-flex;gap:8px;align-items:center;
+      background:var(--chip);padding:6px 12px;border:1px solid var(--border);
+      border-radius:999px;font-size:13px
+    }
+    .post-title{margin:6px 0 6px;font-size:28px;line-height:1.25}
+    .post-subtitle{margin:0;color:#eaf2ff;opacity:.9}
+    .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .post-tags .tag{
+      background:#0f182e;border:1px solid var(--border);border-radius:999px;
+      padding:6px 12px;font-size:12px;color:#cfe6ff
+    }
+    .post-content{margin-top:18px}
+    .post-excerpt{background:#0e162b;border:1px solid var(--border);border-radius:14px;padding:16px}
+    .cert-highlight img{max-width:640px;width:100%;display:block;margin:16px auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 10px 20px rgba(0,0,0,.25)}
+    h2{font-size:22px;margin:18px 0 10px}
+    h3{font-size:18px;margin:14px 0 8px}
+    .tldr-list{padding-left:18px;margin:8px 0}
+    .tldr-list li{margin:6px 0}
+    .requirements-grid{
+      display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))
+    }
+    .req-item{background:#0e162b;border:1px solid var(--border);border-radius:12px;padding:12px}
+    .cheatsheet{display:grid;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+    .cheatsheet-item{background:#0e162b;border:1px solid var(--border);border-radius:10px;padding:10px}
+    pre{background:#111827;color:#e5e7eb;padding:16px;border-radius:10px;border:1px solid #1f2937;overflow:auto}
+    /* Quiz (keep same behavior) */
+    .quiz-section{margin-top:16px}
+    .q{background:#0f1729a8;border:1px solid var(--border);border-radius:12px;padding:14px;margin:12px 0}
+    .q h4{margin:0 0 6px;font-size:15px}
+    .opt{display:grid;gap:8px;margin-top:8px}
+    .opt button{
+      text-align:left;background:#0e1630;border:1px solid var(--border);color:var(--text);
+      padding:10px 12px;border-radius:10px;cursor:pointer
+    }
+    .opt button:hover{border-color:#34508a}
+    .opt button.correct{border-color:#059669;background:#052d23}
+    .opt button.wrong{border-color:#b91c1c;background:#2a0d10}
+    .explain{font-size:13px;color:var(--muted);margin-top:8px}
+    .score{font-weight:700}
+    /* Related posts + audio player sections (compact to mimic structure) */
+    .related-posts{margin:22px 0 10px}
+    .related-posts-grid{display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr))}
+    .related-post{background:#0e162b;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .related-post img{width:100%;height:140px;object-fit:cover}
+    .related-post-content{padding:10px}
+    /* Footer */
+    .post-footer{margin-top:16px;color:var(--muted)}
+    .refs a{display:inline-block;margin:4px 0}
+    /* Responsive */
+    @media (max-width:900px){
+      .requirements-grid,.cheatsheet,.related-posts-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Placeholder -->
+  <div id="sidebar-placeholder"></div>
+  
+  <!-- Mobile Sidebar Toggle -->
+  <button class="sidebar-toggle" id="sidebar-toggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Blog Post Content -->
+  <article class="blog-post">
+    <div class="container">
+      <!-- Post Header -->
+      <header class="post-header">
+        <div class="post-breadcrumb">
+          <a href="../../blog.html"><i class="fas fa-arrow-left"></i> Quay lại Blog</a>
+        </div>
+        <div class="post-meta">
+          <span class="post-category">Database</span>
+          <span class="post-date"><i class="far fa-calendar"></i> 08 Tháng 11, 2025</span>
+          <span class="post-read-time"><i class="far fa-clock"></i> 1 giờ 34 phút</span>
+        </div>
+        <h1 class="post-title">💾 Week 2 — Database &amp; Storage Foundation (AWS) · L100</h1>
+        <p class="post-subtitle">Bản tóm tắt súc tích, dễ áp dụng ngay. Giữ “form” như Network Foundation, bổ sung phần quiz tương tác ở cuối.</p>
+        <div class="post-tags">
+          <span class="tag">AWS</span><span class="tag">Database</span><span class="tag">Storage</span>
+          <span class="tag">RDS</span><span class="tag">DynamoDB</span><span class="tag">Redshift</span><span class="tag">S3</span>
+        </div>
+      </header>
+
+      <!-- Post Body -->
+      <div class="post-content">
+        <div class="post-excerpt">
+          <p>Tuần 2 tập trung vào <strong>cơ sở dữ liệu và lưu trữ</strong> trong hệ sinh thái AWS. Mục tiêu là nắm <em>nguyên tắc thiết kế</em> (mô hình dữ liệu, HA/DR, bảo mật, tối ưu hiệu năng/chi phí) và <em>cách chọn dịch vụ đúng việc</em> giữa RDS, DynamoDB, Redshift, S3/EBS/EFS/FSx…</p>
+        </div>
+
+        <!-- Certification / Thumbnail -->
+        <div class="cert-highlight">
+          <img src="Cert_AWS_DB.png" alt="AWS Database & Storage Certificate / Thumbnail">
+        </div>
+
+        <h2>TL;DR — 10 điểm chốt</h2>
+        <ul class="tldr-list">
+          <li>✅ <strong>Chọn mô hình dữ liệu</strong>: quan hệ (OLTP), NoSQL (key‑value/document/graph), kho dữ liệu (OLAP).</li>
+          <li>✅ <strong>Chọn dịch vụ đúng việc</strong>: RDS/Aurora (relational), DynamoDB (NoSQL), Redshift (DW), Neptune (graph), ElastiCache/MemoryDB (in‑memory), QLDB (ledger).</li>
+          <li>✅ <strong>S3 storage classes</strong>: Standard / Intelligent‑Tiering / *Glacier* (FR/IR/DR) — tối ưu theo tần suất truy cập.</li>
+          <li>✅ <strong>EBS</strong>: gp3 (provision IOPS/throughput), io2 (IOPS cao), st1/sc1 (HDD cho tuần tự/lạnh).</li>
+          <li>✅ <strong>EFS</strong>: NFS đa AZ, đọc thấp tới ~250 µs, scale‑out theo nhu cầu.</li>
+          <li>✅ <strong>HA/DR</strong>: Multi‑AZ (RDS/EFS/DynamoDB), snapshot/backup, cross‑Region khi cần RTO/RPO chặt.</li>
+          <li>✅ <strong>Bảo mật</strong>: mã hóa at‑rest/in‑transit, IAM least‑privilege, KMS keys, audit bằng CloudTrail.</li>
+          <li>✅ <strong>Hiệu năng</strong>: cache (DAX/ElastiCache), index/partition, auto‑scaling, cấu hình IOPS/throughput hợp lý.</li>
+          <li>✅ <strong>Chi phí</strong>: chọn lớp S3 đúng, lifecycle policy, gp3 thay gp2, theo dõi egress/NAT/backup.</li>
+          <li>✅ <strong>Tự động hoá</strong>: IaC (CloudFormation/Terraform), runbooks, alarms & dashboards.</li>
+        </ul>
+
+        <h2>Course Content</h2>
+
+        <h3>1) AWS Storage Classes</h3>
+        <p><strong>S3</strong> cung cấp nhiều lớp để cân bằng <em>chi phí ↔ độ trễ ↔ tần suất</em>. <strong>Intelligent‑Tiering</strong> tự động chuyển đối tượng giữa các tầng; <strong>Glacier Instant Retrieval</strong> truy xuất mili‑giây cho dữ liệu truy cập vài lần/năm; <strong>One Zone‑IA</strong> rẻ nhưng rủi ro AZ.</p>
+
+        <h3>2) Block Storage</h3>
+        <p><strong>EBS</strong> cho EC2: <strong>gp3</strong> baseline 3.000 IOPS và lên tới 1.000&nbsp;MiB/s; <strong>io2</strong> (kể cả Block Express) cho IOPS ngẫu nhiên cực cao; <strong>st1</strong> tối ưu thông lượng tuần tự; <strong>sc1</strong> cho dữ liệu lạnh.</p>
+
+        <h3>3) AWS Database Managed Services</h3>
+        <ul class="tldr-list">
+          <li><strong>RDS/Aurora</strong>: relational được quản lý (backup/patch/monitor) — Aurora đạt tới 5× MySQL, tối đa 15 read replicas.</li>
+          <li><strong>DynamoDB</strong>: NoSQL key‑value/document, milli‑giây, nhân bản đa AZ; <strong>DAX</strong> cache đọc microsecond.</li>
+          <li><strong>MemoryDB</strong>: tương thích Redis/Valkey, đọc µs, ghi ms một chữ số, bền đa AZ.</li>
+          <li><strong>Redshift</strong>: data warehouse quy mô petabyte, MPP, materialized views, Spectrum.</li>
+          <li><strong>Neptune</strong>: đồ thị (Gremlin/SPARQL/openCypher); <strong>QLDB</strong>: sổ cái bất biến (hash‑chaining).</li>
+        </ul>
+
+        <h3>4) AWS Databases — chọn đúng công cụ</h3>
+        <p>OLTP quan hệ → RDS/Aurora; key‑value/document → DynamoDB; đồ thị → Neptune; phân tích BI → Redshift; cache/in‑memory → ElastiCache/MemoryDB; audit ledger → QLDB.</p>
+
+        <h2>Requirements (để học & lab mượt)</h2>
+        <div class="requirements-grid">
+          <div class="req-item"><h4>🔒 Bảo mật</h4><p>KMS keys, IAM least‑privilege, audit CloudTrail, S3 Block Public Access.</p></div>
+          <div class="req-item"><h4>📦 Sao lưu</h4><p>Snapshots, PITR, lifecycle S3, kiểm thử khôi phục định kỳ.</p></div>
+          <div class="req-item"><h4>⚙️ Hiệu năng</h4><p>Read replicas (Aurora/RDS), partition/index, DAX/ElastiCache, cấu hình gp3/io2.</p></div>
+          <div class="req-item"><h4>🌐 Khả dụng</h4><p>Multi‑AZ, health checks, failover, cross‑Region khi cần.</p></div>
+          <div class="req-item"><h4>🧮 Chi phí</h4><p>Chọn lớp S3 phù hợp, tag & Cost Explorer, theo dõi egress/NAT/backup.</p></div>
+          <div class="req-item"><h4>🧱 IaC</h4><p>CloudFormation/Terraform modules, policy checks, pipelines.</p></div>
+        </div>
+
+        <h2>Cheat Sheet 30 giây</h2>
+        <div class="cheatsheet">
+          <div class="cheatsheet-item"><strong>S3:</strong> chọn lớp theo tần suất, bật lifecycle</div>
+          <div class="cheatsheet-item"><strong>EBS:</strong> gp3 cho cân bằng, io2 cho IOPS cao, st1 cho tuần tự</div>
+          <div class="cheatsheet-item"><strong>EFS:</strong> NFS đa AZ, đọc ~250 µs, truy cập đồng thời</div>
+          <div class="cheatsheet-item"><strong>Aurora:</strong> 5× MySQL, tối đa 15 replicas</div>
+          <div class="cheatsheet-item"><strong>DynamoDB:</strong> ms‑latency, DAX đọc µs</div>
+          <div class="cheatsheet-item"><strong>MemoryDB:</strong> Redis‑compatible, đọc µs, ghi ms</div>
+        </div>
+
+        <h2>Kiến trúc mẫu</h2>
+        <pre><code>Client ──► CloudFront ──► ALB
+                 │
+             S3 (static)
+                 │
+        App (ECS/EKS/EC2) ──► DynamoDB / RDS (Aurora)
+                 │
+           EFS / EBS volumes
+                 │
+           S3 (backup/lifecycle)
+                 │
+      Analytics ► Redshift (ELT)
+</code></pre>
+
+        <h2>Quiz — Luyện tập</h2>
+        <p class="muted">Giữ nguyên 20 câu như yêu cầu. Chọn đáp án để xem giải thích đầy đủ.</p>
+        <div id="scorebox"><strong class="score" id="score">0</strong>/20 đúng</div>
+        <div id="quiz" class="quiz-section"></div>
+
+        <h2>Nguồn tham khảo nhanh</h2>
+        <div class="refs">
+          <a href="https://aws.amazon.com/rds/aurora/" target="_blank" rel="noopener">Amazon Aurora (overview)</a><br>
+          <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Replication.html" target="_blank" rel="noopener">Aurora Replicas</a><br>
+          <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html" target="_blank" rel="noopener">Amazon EBS Volume Types</a><br>
+          <a href="https://docs.aws.amazon.com/efs/latest/ug/performance.html" target="_blank" rel="noopener">Amazon EFS Performance</a><br>
+          <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html" target="_blank" rel="noopener">DynamoDB Accelerator (DAX)</a><br>
+          <a href="https://docs.aws.amazon.com/memorydb/latest/devguide/what-is-memorydb.html" target="_blank" rel="noopener">Amazon MemoryDB</a><br>
+          <a href="https://aws.amazon.com/timestream/features/" target="_blank" rel="noopener">Amazon Timestream Features</a><br>
+          <a href="https://aws.amazon.com/s3/storage-classes/intelligent-tiering/" target="_blank" rel="noopener">S3 Intelligent-Tiering</a><br>
+          <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/glacier-storage-classes.html" target="_blank" rel="noopener">S3 Glacier Storage Classes</a><br>
+          <a href="https://aws.amazon.com/keyspaces/sla/" target="_blank" rel="noopener">Amazon Keyspaces SLA</a>
+        </div>
+
+        <div class="post-footer">
+          <p>© 2025 · Database & Storage Foundation — bản blog mô phỏng "form" Network Foundation, giữ quiz nguyên bản.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Related posts (kept compact, similar section exists in reference page) -->
+  <section class="related-posts">
+    <div class="container">
+      <h3>Bài viết liên quan</h3>
+      <div class="related-posts-grid">
+        <article class="related-post">
+          <img src="https://images.unsplash.com/photo-1522071901873-411886a10004?w=600&h=400&fit=crop" alt="AWS Storage Tips">
+          <div class="related-post-content">
+            <h4><a href="#">📦 7 mẹo tối ưu chi phí S3</a></h4>
+            <p class="muted">Lifecycle, Intelligent‑Tiering, Glacier IR/FR, và phân tích truy cập…</p>
+          </div>
+        </article>
+        <article class="related-post">
+          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=600&h=400&fit=crop" alt="Aurora Tuning">
+          <div class="related-post-content">
+            <h4><a href="#">⚡ Tối ưu Aurora cho OLTP</a></h4>
+            <p class="muted">Kết nối, pool, chỉ mục, phân vùng, và cấu hình read replicas.</p>
+          </div>
+        </article>
+        <article class="related-post">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop" alt="DynamoDB Patterns">
+          <div class="related-post-content">
+            <h4><a href="#">🔑 Mẫu thiết kế DynamoDB</a></h4>
+            <p class="muted">Single‑table, GSIs/LSIs, DAX, streams, TTL, và backup.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+  // ---------- QUIZ (keep exactly the same set as before) ----------
+  const QUIZ = [
+    {
+      q: "What is the highest performance class of EBS volume that can deliver up to 350,000 IOPS?",
+      options: ["gp3","st1","io2","sc1"],
+      answer: 2,
+      explain: [
+        "Sai: gp3 là SSD mục đích chung, IOPS thấp hơn io2.",
+        "Sai: st1 là HDD tối ưu thông lượng, không cho IOPS cực cao.",
+        "Đúng: io2 (kể cả Block Express) hướng IOPS/độ trễ cao nhất của EBS.",
+        "Sai: sc1 là HDD lạnh, hiệu năng thấp."
+      ]
+    },
+    {
+      q: "Amazon Aurora provides what level of throughput improvement compared to standard MySQL?",
+      options: ["2x throughput","3x throughput","4x throughput","5x throughput"],
+      answer: 3,
+      explain: [
+        "Sai: thấp hơn công bố của AWS.",
+        "Sai: thấp hơn công bố của AWS.",
+        "Sai: thấp hơn công bố của AWS.",
+        "Đúng: tới 5× MySQL (tùy workload)."
+      ]
+    },
+    {
+      q: "Which Amazon S3 storage class offers millisecond access but is designed for data accessed only 3-4 times per year?",
+      options: ["S3 Standard","S3 Intelligent-Tiering","S3 Glacier Instant Retrieval","S3 One Zone-IA"],
+      answer: 2,
+      explain: [
+        "Sai: dành cho truy cập thường xuyên, chi phí cao hơn.",
+        "Sai: tự động tiering nhưng không nhắm riêng mức truy cập vài lần/năm.",
+        "Đúng: Glacier Instant Retrieval cho ms retrieval, tần suất ~quý/lần.",
+        "Sai: One Zone-IA lưu một AZ và không nhắm use case này."
+      ]
+    },
+    {
+      q: "What is the durability rating of Amazon EFS storage systems?",
+      options: ["Nine 9's (99.9999999%)","Eleven 9's (99.999999999%)","Five 9's (99.999%)","Seven 9's (99.99999%)"],
+      answer: 1,
+      explain: [
+        "Sai: thấp hơn mức thiết kế.",
+        "Đúng: EFS được thiết kế đạt 11 số 9 độ bền.",
+        "Sai: đây thường là sẵn sàng, không phải độ bền cho EFS.",
+        "Sai: vẫn thấp hơn chuẩn 11 số 9."
+      ]
+    },
+    {
+      q: "Which AWS database service offers microsecond read and single-digit millisecond write latencies with Redis compatibility?",
+      options: ["Amazon ElastiCache","Amazon MemoryDB","Amazon DynamoDB","Amazon DocumentDB"],
+      answer: 1,
+      explain: [
+        "Sai: ElastiCache là cache trong bộ nhớ, không phải kho bền như MemoryDB.",
+        "Đúng: MemoryDB for Redis cung cấp đọc µs, ghi ms một chữ số.",
+        "Sai: DynamoDB không tương thích Redis.",
+        "Sai: DocumentDB tương thích MongoDB, không phải Redis."
+      ]
+    },
+    {
+      q: "What is the baseline IOPS for gp3 EBS volumes?",
+      options: ["1000 IOPS","2000 IOPS","3000 IOPS","4000 IOPS"],
+      answer: 2,
+      explain: [
+        "Sai: thấp hơn baseline.",
+        "Sai: thấp hơn baseline.",
+        "Đúng: baseline mặc định 3.000 IOPS.",
+        "Sai: cao hơn baseline mặc định."
+      ]
+    },
+    {
+      q: "Which Amazon DynamoDB feature provides microsecond latency for frequently accessed data?",
+      options: ["Global Tables","DynamoDB Streams","DynamoDB Accelerator (DAX)","Auto Scaling"],
+      answer: 2,
+      explain: [
+        "Sai: Global Tables là nhân bản đa Region, không phải cache µs.",
+        "Sai: Streams là CDC/luồng thay đổi.",
+        "Đúng: DAX cache trong bộ nhớ cho đọc µs.",
+        "Sai: Auto Scaling chỉ điều chỉnh thông lượng."
+      ]
+    },
+    {
+      q: "Amazon FSx for Windows File Server supports which of these file system protocols?",
+      options: ["NFS only","SMB only","Both NFS and SMB","Neither NFS nor SMB"],
+      answer: 1,
+      explain: [
+        "Sai: NFS không phải giao thức chính của bản Windows.",
+        "Đúng: FSx for Windows sử dụng SMB.",
+        "Sai: Không hỗ trợ cả hai cùng lúc—bản Windows chỉ SMB.",
+        "Sai: Có hỗ trợ SMB."
+      ]
+    },
+    {
+      q: "What is the claimed performance improvement of Amazon Timestream compared to traditional relational databases?",
+      options: ["100x faster","500x faster","1000x faster","2000x faster"],
+      answer: 2,
+      explain: [
+        "Sai: thấp hơn tuyên bố phổ biến của AWS.",
+        "Sai: thấp hơn tuyên bố phổ biến của AWS.",
+        "Đúng: tới 1000× nhanh hơn cho time‑series (tùy workload).",
+        "Sai: cao hơn tuyên bố của AWS."
+      ]
+    },
+    {
+      q: "Which storage class automatically moves objects between access tiers based on usage patterns?",
+      options: ["S3 Standard","S3 Intelligent-Tiering","S3 Glacier Flexible Retrieval","S3 One Zone-IA"],
+      answer: 1,
+      explain: [
+        "Sai: lớp cố định, không tự động chuyển tier.",
+        "Đúng: Intelligent‑Tiering tự động chuyển theo mẫu truy cập.",
+        "Sai: Glacier Flexible Retrieval là archive, không auto tiering.",
+        "Sai: One Zone-IA không có cơ chế auto tiering."
+      ]
+    },
+    {
+      q: "Amazon Aurora Serverless automatically scales based on what?",
+      options: ["Storage capacity only","Database capacity (compute + memory)","Number of concurrent connections","Time of day"],
+      answer: 1,
+      explain: [
+        "Sai: không chỉ theo dung lượng lưu trữ.",
+        "Đúng: theo ACU (compute + memory).",
+        "Sai: kết nối ảnh hưởng tải nhưng không phải thước đo duy nhất.",
+        "Sai: không theo lịch thời gian cố định."
+      ]
+    },
+    {
+      q: "What is the maximum storage capacity for a single Amazon RDS instance?",
+      options: ["64 TB","96 TB","128 TB","256 TB"],
+      answer: 0,
+      explain: [
+        "Đúng: đa số engine RDS hỗ trợ tối đa ~64 TiB.",
+        "Sai: không phải giới hạn công bố.",
+        "Sai: không phải giới hạn công bố.",
+        "Sai: không phải giới hạn công bố."
+      ]
+    },
+    {
+      q: "Which AWS database service is specifically designed for applications requiring graph data models?",
+      options: ["Amazon Neptune","Amazon DocumentDB","Amazon DynamoDB","Amazon QLDB"],
+      answer: 0,
+      explain: [
+        "Đúng: Neptune hỗ trợ Gremlin/openCypher/SPARQL.",
+        "Sai: DocumentDB là tài liệu (MongoDB‑compatible).",
+        "Sai: DynamoDB là key‑value/document, không chuyên đồ thị.",
+        "Sai: QLDB là sổ cái bất biến, không phải đồ thị."
+      ]
+    },
+    {
+      q: "What is the maximum throughput per EBS volume for gp3?",
+      options: ["500 MiB/s","750 MiB/s","1000 MiB/s","2000 MiB/s"],
+      answer: 2,
+      explain: [
+        "Sai: thấp hơn tối đa.",
+        "Sai: thấp hơn tối đa.",
+        "Đúng: tối đa 1.000 MiB/s (với cấu hình phù hợp).",
+        "Sai: vượt quá giới hạn của gp3."
+      ]
+    },
+    {
+      q: "Which feature of Amazon QLDB ensures that the history of data changes cannot be altered?",
+      options: ["Versioning","Cryptographic chaining","Backup snapshots","Continuous replication"],
+      answer: 1,
+      explain: [
+        "Sai: versioning không cung cấp tính bất biến có thể kiểm chứng.",
+        "Đúng: chuỗi băm mật mã (hash‑chaining) trong journal.",
+        "Sai: backup giúp khôi phục, không bảo đảm bất biến.",
+        "Sai: sao chép không ngăn sửa đổi lịch sử."
+      ]
+    },
+    {
+      q: "What is the availability SLA for Amazon Keyspaces?",
+      options: ["99.90%","99.95%","99.99%","100.00%"],
+      answer: 2,
+      explain: [
+        "Sai: thấp hơn SLA chính thức.",
+        "Sai: thấp hơn SLA chính thức.",
+        "Đúng: SLA 99,99%.",
+        "Sai: không dịch vụ nào cam kết 100%."
+      ]
+    },
+    {
+      q: "How many copies of data does DynamoDB maintain across Availability Zones?",
+      options: ["2 copies","3 copies","4 copies","6 copies"],
+      answer: 1,
+      explain: [
+        "Sai: không phản ánh nhân bản đa AZ mặc định.",
+        "Đúng: tài liệu/FAQ thường mô tả đồng bộ qua 3 cơ sở (AZ).",
+        "Sai: vượt quá cơ chế sao chép mặc định.",
+        "Sai: vượt quá cơ chế sao chép mặc định."
+      ]
+    },
+    {
+      q: "Which EBS volume type is specifically optimized for large sequential workloads?",
+      options: ["gp3","io2","st1","sc1"],
+      answer: 2,
+      explain: [
+        "Sai: gp3 cân bằng, không tối ưu cho tuần tự lớn như st1.",
+        "Sai: io2 tối ưu IOPS ngẫu nhiên.",
+        "Đúng: st1 (Throughput Optimized HDD) tối ưu throughput tuần tự.",
+        "Sai: sc1 là HDD lạnh, hiệu năng thấp."
+      ]
+    },
+    {
+      q: "What is the minimum latency that Amazon EFS can achieve for read operations?",
+      options: ["100 microseconds","250 microseconds","500 microseconds","1 millisecond"],
+      answer: 1,
+      explain: [
+        "Sai: thấp hơn mức công bố.",
+        "Đúng: EFS Standard có first‑byte read thấp tới ~250 µs.",
+        "Sai: cao hơn mức tối thiểu công bố.",
+        "Sai: cao hơn mức tối thiểu công bố."
+      ]
+    },
+    {
+      q: "How many read replicas can Amazon Aurora support for scale-out?",
+      options: ["5 read replicas","10 read replicas","15 read replicas","20 read replicas"],
+      answer: 2,
+      explain: [
+        "Sai: thấp hơn mức tối đa.",
+        "Sai: thấp hơn mức tối đa.",
+        "Đúng: tối đa 15 Aurora Replicas.",
+        "Sai: vượt giới hạn tối đa."
+      ]
+    }
+  ];
+  let score = 0;
+  function renderQuiz(){
+    const box = document.getElementById('quiz');
+    QUIZ.forEach((item, idx) => {
+      const q = document.createElement('div');
+      q.className = 'q';
+      q.innerHTML = `<h4>${idx+1}. ${item.q}</h4>`;
+      const opt = document.createElement('div');
+      opt.className = 'opt';
+      item.options.forEach((label, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = label;
+        btn.addEventListener('click', () => {
+          [...opt.children].forEach(b => b.disabled = true);
+          if (i === item.answer){ btn.classList.add('correct'); score++; }
+          else { btn.classList.add('wrong'); opt.children[item.answer].classList.add('correct'); }
+          document.getElementById('score').textContent = score;
+          const ex = document.createElement('div');
+          ex.className = 'explain';
+          ex.innerHTML = item.explain.map((t,j)=>`${j===item.answer?'✅':'✖️'} ${item.options[j]} — ${t}`).join('<br/>');
+          q.appendChild(ex);
+        });
+        opt.appendChild(btn);
+      });
+      q.appendChild(opt);
+      document.getElementById('quiz').appendChild(q);
+    });
+  }
+  renderQuiz();
+  </script>
+
+  <!-- Load Components Script -->
+  <script src="../../assets/js/load-components.js"></script>
+  <script src="../../assets/js/script.js"></script>
+  <script src="../../assets/js/global-audio.js"></script>
+  <script src="../../assets/js/animations.js"></script>
+  <script src="../../assets/js/dark-mode.js"></script>
+</body>
+</html>

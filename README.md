@@ -82,12 +82,38 @@ Xin chào! Tôi là **Vũ Văn Thông**, sinh viên năm 3 chuyên ngành **An t
 
 - 📚 **9+ Blog Posts**: Chia sẻ kiến thức về SOC, Blue Team, Cloud Security
 - 🏷️ **Category Filter**: Lọc bài viết theo chủ đề (Blue Team, Cloud, Projects, Writeup)
-- 🔍 **Search Functionality**: Tìm kiếm bài viết theo tiêu đề và nội dung
+- 🔍 **Advanced Search**: Tìm kiếm nâng cao với:
+  - Real-time search với debouncing (300ms)
+  - Tìm kiếm theo tiêu đề, excerpt, và tags
+  - Kết quả tìm kiếm với animation fade-in
+  - Hiển thị số lượng kết quả
+- 🏷️ **Tags System**: 
+  - Tag filtering với multiple tag selection
+  - Hiển thị tags trên mỗi blog post
+  - Click vào tag để filter các bài viết có cùng tag
+- 💬 **Comments System**: 
+  - Hệ thống bình luận với localStorage storage
+  - Hỗ trợ reply comments (nested comments)
+  - Hiển thị tên, email (optional), và timestamp
+  - Form validation và notification system
+- 🔗 **Related Posts**: 
+  - Hiển thị 3 bài viết liên quan nhất
+  - Matching algorithm dựa trên tags và categories
+  - Được hiển thị ở cuối mỗi blog post
+- 📡 **RSS Feed**: 
+  - RSS feed generator tự động
+  - Download RSS feed (feed.xml)
+  - Link RSS feed trên blog hero section
 - 📱 **Sidebar**: Sidebar hiển thị thông tin cá nhân trên mọi trang blog
 - 📊 **Reading Progress**: Thanh tiến độ đọc bài viết
 - 📋 **Code Highlighting**: Syntax highlighting cho code blocks với Prism.js
 - 📤 **Share Buttons**: Chia sẻ bài viết lên Facebook, Twitter, LinkedIn
 - 📋 **Copy Code**: Nút copy code trong code blocks
+- ✨ **Blog Animations**: 
+  - Fade-in animations cho blog cards
+  - Stagger animations cho multiple cards
+  - Scroll reveal animations cho content elements
+  - Parallax effect cho post headers
 
 ### 🧩 Component Architecture
 
@@ -98,15 +124,44 @@ Xin chào! Tôi là **Vũ Văn Thông**, sinh viên năm 3 chuyên ngành **An t
   - Mobile: Sidebar ẩn mặc định, có thể toggle mở/đóng
 - 🔗 **Dynamic Navigation**: Navigation links tự động cập nhật dựa trên vị trí hiện tại
 
+### 🌓 Dark Mode & i18n
+
+- 🌙 **Dark Mode Toggle**: 
+  - Button toggle trong header
+  - Lưu preference vào localStorage
+  - Hỗ trợ system preference (prefers-color-scheme)
+  - Smooth transition khi chuyển đổi
+  - Dark mode styles cho tất cả components
+- 🌍 **i18n (Đa ngôn ngữ)**: 
+  - Hỗ trợ Vietnamese và English
+  - Language toggle button trong header
+  - Lưu language preference vào localStorage
+  - Tự động translate navigation, hero section
+  - Có thể mở rộng cho toàn bộ website
+
+### 🚀 PWA Support
+
+- 📱 **Progressive Web App**: 
+  - manifest.json với đầy đủ metadata
+  - Service Worker với caching strategy
+  - Offline support với fallback
+  - Install prompt optimization
+  - App shortcuts (Blog, Projects)
+  - Theme color và background color
+  - Icons cho PWA (192x192, 512x512)
+
 ### 🎯 Tính năng khác
 
-- 📸 **Lazy Loading Images**: Tối ưu performance với lazy loading
+- 📸 **Lazy Loading Images**: Tối ưu performance với lazy loading và Intersection Observer
 - ⌨️ **Keyboard Navigation**: Hỗ trợ điều hướng bằng bàn phím (ESC để đóng menu)
 - ♿ **Accessibility**: Focus management và ARIA labels
 - 🚀 **Performance Optimization**: 
-  - Debounced scroll events
-  - Image preloading
-  - Intersection Observer cho animations
+  - Debounced scroll events (throttle với requestAnimationFrame)
+  - Image preloading cho critical resources
+  - Intersection Observer cho animations và lazy loading
+  - Will-change optimization cho animated elements
+  - Preconnect cho external resources (fonts, CDN)
+  - Resource hints (DNS prefetch)
 - 💼 **Project Filtering**: Lọc dự án theo category (Security, Forensics, Crypto, Web)
 - 📊 **Skills Visualization**: Progress bars với animation khi scroll đến section
 - 📧 **Contact Form**: Form liên hệ với validation
@@ -145,6 +200,8 @@ Xin chào! Tôi là **Vũ Văn Thông**, sinh viên năm 3 chuyên ngành **An t
   - Dark theme (prism-tomorrow)
   - Auto-loader plugin
 - 🎵 **HTML5 Audio API**: Audio player functionality với full control
+- 📱 **Service Worker API**: PWA functionality với offline support
+- 💾 **LocalStorage API**: State persistence cho audio, dark mode, language, comments
 
 ### Tools & Features
 
@@ -277,11 +334,15 @@ Xin chào! Tôi là **Vũ Văn Thông**, sinh viên năm 3 chuyên ngành **An t
 | 🛠️ **Dự án bảo mật** | 15+ |
 | 📝 **Blog Posts** | 9+ |
 | 🏆 **Chứng chỉ** | 5 |
-| 🎨 **CSS Lines** | 2500+ |
-| 💻 **JS Lines** | 2000+ |
-| 📄 **HTML Pages** | 15+ |
+| 🎨 **CSS Lines** | 3000+ |
+| 💻 **JS Lines** | 3500+ |
+| 📄 **HTML Pages** | 18+ |
 | 🎵 **Audio Tracks** | 3 |
 | 🖼️ **Images** | 10+ |
+| 🌓 **Dark Mode** | ✅ |
+| 🌍 **Languages** | 2 (VI/EN) |
+| 📡 **RSS Feed** | ✅ |
+| 📱 **PWA** | ✅ |
 
 </div>
 
@@ -338,7 +399,8 @@ Porfolio_VVTR/
 │   │   ├── beacon-detection-challenge.html
 │   │   └── ransomware-response-challenge.html
 │   │
-│   ├── 📂 cloud/             # Cloud Security posts (1 bài)
+│   ├── 📂 cloud/             # Cloud Security posts (2 bài)
+│   │   ├── aws-network-foundation.html
 │   │   └── aws-misconfigurations.html
 │   │
 │   └── 📂 projects/          # Project posts (2 bài)
@@ -347,8 +409,8 @@ Porfolio_VVTR/
 │
 ├── 📂 assets/
 │   ├── 📂 css/               # Stylesheets
-│   │   ├── style.css        # Main stylesheet (2500+ lines)
-│   │   └── blog.css         # Blog-specific styles
+│   │   ├── style.css        # Main stylesheet (2750+ lines)
+│   │   └── blog.css         # Blog-specific styles (3000+ lines)
 │   │
 │   ├── 📂 js/                # JavaScript files
 │   │   ├── animations.js    # Custom cursor & animations
@@ -356,7 +418,15 @@ Porfolio_VVTR/
 │   │   ├── audio-player.js  # Audio player UI
 │   │   ├── blog.js          # Blog functionality (460 lines)
 │   │   ├── load-components.js # Component loader (218 lines)
-│   │   └── script.js        # Main scripts (455 lines)
+│   │   ├── script.js        # Main scripts (455 lines)
+│   │   ├── dark-mode.js     # Dark mode toggle functionality
+│   │   ├── i18n.js          # Internationalization (Vietnamese/English)
+│   │   ├── blog-search.js   # Advanced blog search & tag filtering
+│   │   ├── comments.js      # Comments system with localStorage
+│   │   ├── related-posts.js # Related posts algorithm
+│   │   ├── rss-feed.js      # RSS feed generator
+│   │   ├── blog-animations.js # Blog post animations
+│   │   └── performance-optimizer.js # Performance optimization utilities
 │   │
 │   ├── 📂 img/               # Images
 │   │   ├── myface.jpg       # Profile image
@@ -378,6 +448,8 @@ Porfolio_VVTR/
 │       ├── Beethoven2_Virus.mp3
 │       └── Beethoven3.mp3
 │
+├── 📄 manifest.json          # PWA manifest file
+├── 📄 service-worker.js      # Service Worker for PWA
 └── 📄 README.md              # File này
 ```
 
@@ -397,18 +469,31 @@ Bạn có thể tự do sử dụng code làm reference cho portfolio của mìn
 
 ---
 
-## 🔮 Future Updates
+## 🔮 Future Updates - Đã hoàn thành ✅
 
-- [ ] Thêm dark mode toggle
-- [ ] Thêm search functionality cho blog (đã có basic)
-- [ ] Thêm comments system
-- [ ] Thêm RSS feed
-- [ ] Optimize performance
-- [ ] Thêm PWA support
-- [ ] Thêm i18n (Đa ngôn ngữ)
-- [ ] Thêm animation cho blog posts
-- [ ] Thêm tags system cho blog
-- [ ] Thêm related posts section
+Tất cả các tính năng trong Future Updates đã được triển khai:
+
+- [x] ✅ **Dark Mode Toggle** - Toggle button trong header, lưu preference vào localStorage, hỗ trợ system preference
+- [x] ✅ **Advanced Search** - Tìm kiếm nâng cao với tag filtering, real-time search, và results count
+- [x] ✅ **Comments System** - Hệ thống bình luận với localStorage, hỗ trợ reply comments
+- [x] ✅ **RSS Feed** - RSS feed generator tự động với download functionality
+- [x] ✅ **Performance Optimization** - Lazy loading, preloading, debouncing, throttling, và will-change optimization
+- [x] ✅ **PWA Support** - manifest.json và service worker với offline support
+- [x] ✅ **i18n (Đa ngôn ngữ)** - Hỗ trợ Vietnamese và English với language toggle
+- [x] ✅ **Blog Animations** - Fade-in, slide-in, scroll reveal animations cho blog posts
+- [x] ✅ **Tags System** - Tag filtering với multiple tag selection và tag display
+- [x] ✅ **Related Posts** - Hiển thị bài viết liên quan dựa trên tags và categories
+
+### 🚀 Tính năng tiếp theo có thể thêm
+
+- [ ] **SEO Optimization** - Meta tags, Open Graph, Schema.org structured data
+- [ ] **Email Integration** - Contact form với email service (Formspree, EmailJS)
+- [ ] **Table of Contents** - Tự động tạo mục lục cho blog posts dài
+- [ ] **Reading Time Calculator** - Tính toán thời gian đọc cho mỗi bài viết
+- [ ] **Print Stylesheet** - Tối ưu cho in blog posts
+- [ ] **Export to PDF** - Xuất blog post ra PDF
+- [ ] **GitHub Integration** - Hiển thị GitHub activity và contributions graph
+- [ ] **Analytics** - Google Analytics hoặc Plausible Analytics integration
 
 ---
 
@@ -463,11 +548,17 @@ Bạn có thể tự do sử dụng code làm reference cho portfolio của mìn
    - Nội dung: Phát hiện và xử lý ransomware outbreak với IR timeline chi tiết
    - Link: `posts/blue/ransomware-response-challenge.html`
 
-### ☁️ Cloud Security (1 bài viết)
+### ☁️ Cloud Security (2 bài viết)
 
-1. **10 cấu hình sai phổ biến nhất trên AWS khiến hệ thống "lộ bụng"**
-   - Ngày đăng: 26 Tháng 10, 2025
-   - Thời gian đọc: 12 phút
+1. **Network Foundation – Blog tóm tắt dễ hiểu (góc nhìn sinh viên)**
+   - Ngày đăng: 26 Tháng 1, 2025
+   - Thời gian đọc: 25 phút
+   - Nội dung: Mình vừa hoàn thành Week 1 và tổng hợp lại nội dung theo cách ngắn gọn, đọc tới là áp dụng được. Bài này dành cho bạn mới bước vào AWS Networking
+   - Link: `posts/cloud/aws-network-foundation.html`
+
+2. **10 cấu hình sai phổ biến nhất trên AWS khiến hệ thống "lộ bụng"**
+   - Ngày đăng: 25 Tháng 1, 2025
+   - Thời gian đọc: 18 phút
    - Nội dung: Misconfiguration là nguyên nhân hàng đầu dẫn đến lộ lọt dữ liệu trên đám mây
    - Link: `posts/cloud/aws-misconfigurations.html`
 
@@ -525,6 +616,13 @@ python -m http.server 8000
 
 #### 📝 Blog
 - Click vào category filter để lọc bài viết
+- **Search**: Nhập từ khóa vào ô tìm kiếm để tìm bài viết theo tiêu đề, nội dung, hoặc tags
+- **Tag Filtering**: Click vào các tag buttons để filter bài viết theo tags (có thể chọn nhiều tags)
+- **Comments**: Scroll xuống cuối bài viết để xem và thêm bình luận
+  - Điền tên (bắt buộc), email (tùy chọn), và nội dung bình luận
+  - Click "Trả lời" để reply một bình luận
+- **Related Posts**: Xem các bài viết liên quan ở cuối mỗi blog post
+- **RSS Feed**: Click vào "RSS Feed" link hoặc download button để lấy RSS feed
 - Click vào bài viết để đọc chi tiết
 - Sidebar hiển thị thông tin cá nhân trên mọi trang blog
 - Code blocks có nút copy code
@@ -542,32 +640,67 @@ python -m http.server 8000
 - Hover vào project cards để thấy overlay với links
 - Click vào project để xem chi tiết
 
+#### 🌓 Dark Mode & Language
+- **Dark Mode**: Click vào nút moon/sun icon trong header để toggle dark mode
+  - Preference được lưu tự động và áp dụng cho tất cả các trang
+- **Language**: Click vào nút "VI/EN" trong header để chuyển đổi ngôn ngữ
+  - Hỗ trợ Vietnamese và English
+  - Preference được lưu tự động
+
 #### 📧 Contact Page
 - Form liên hệ với validation
 - FAQ section với accordion
 - Multiple contact methods (Email, Phone, WhatsApp, Telegram)
 
+#### 📱 PWA Features
+- **Install**: Website có thể được cài đặt như một ứng dụng trên mobile/desktop
+- **Offline**: Service Worker cache các resources để có thể truy cập offline
+- **App-like**: Trải nghiệm giống ứng dụng native với splash screen và standalone display
+
 ---
 
 ## 🎨 Tính năng Portfolio - Tóm tắt
 
+### ✨ Core Features
 - ✅ **Responsive Design** - Tương thích mọi thiết bị
 - ✅ **Modern UI/UX** - Giao diện hiện đại, tối giản
 - ✅ **Smooth Animations** - Hiệu ứng mượt mà
 - ✅ **Multi-page Structure** - Cấu trúc nhiều trang dễ quản lý
 - ✅ **Interactive Elements** - Các thành phần tương tác
-- ✅ **Certificate Display** - Hiển thị chứng chỉ với ảnh
-- ✅ **Social Media Integration** - Tích hợp mạng xã hội
-- ✅ **Blog System** - Hệ thống blog với phân loại
 - ✅ **Component-based Architecture** - Kiến trúc component
-- ✅ **Contact Form** - Form liên hệ tương tác
-- ✅ **Project Filtering** - Lọc dự án theo danh mục
-- ✅ **Skills Visualization** - Hiển thị kỹ năng với thanh tiến độ
-- ✅ **Global Audio Player** - Nhạc phát liên tục qua các trang
-- ✅ **Custom Cursor** - Con trỏ chuột tùy chỉnh với hiệu ứng
+
+### 🎨 Visual Features
+- ✅ **Custom Cursor** - Con trỏ chuột tùy chỉnh với hiệu ứng glow và particles
 - ✅ **Dynamic Background** - Background động với mesh gradient
+- ✅ **Glass Morphism** - Backdrop blur effects trên cards
+- ✅ **Glow Effects** - Glow effects trên buttons và links
+- ✅ **Custom Scrollbar** - Custom styled scrollbar
+
+### 📝 Blog Features
+- ✅ **Blog System** - Hệ thống blog với phân loại (9+ posts)
+- ✅ **Category Filter** - Lọc bài viết theo chủ đề
+- ✅ **Advanced Search** - Tìm kiếm nâng cao với tag filtering
+- ✅ **Tags System** - Tag filtering với multiple tag selection
+- ✅ **Comments System** - Hệ thống bình luận với localStorage và reply
+- ✅ **Related Posts** - Hiển thị bài viết liên quan dựa trên tags/categories
+- ✅ **RSS Feed** - RSS feed generator và download
 - ✅ **Code Highlighting** - Syntax highlighting cho blog posts
 - ✅ **Reading Progress** - Thanh tiến độ đọc bài viết
+- ✅ **Blog Animations** - Animations mượt mà cho blog posts
+
+### 🎯 User Experience
+- ✅ **Dark Mode** - Toggle dark/light mode với persistence
+- ✅ **i18n** - Hỗ trợ đa ngôn ngữ (Vietnamese/English)
+- ✅ **Global Audio Player** - Nhạc phát liên tục qua các trang
+- ✅ **PWA Support** - Progressive Web App với offline support
+- ✅ **Performance Optimization** - Lazy loading, preloading, debouncing
+
+### 📊 Content Features
+- ✅ **Certificate Display** - Hiển thị chứng chỉ với ảnh
+- ✅ **Social Media Integration** - Tích hợp mạng xã hội
+- ✅ **Project Filtering** - Lọc dự án theo danh mục
+- ✅ **Skills Visualization** - Hiển thị kỹ năng với thanh tiến độ
+- ✅ **Contact Form** - Form liên hệ tương tác với validation
 
 ---
 
